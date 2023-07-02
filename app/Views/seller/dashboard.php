@@ -3,5 +3,4 @@
 <p>Welcome, <?= session()->get('name'); ?></p>
 
 <a href="/menu">Daftar Menu</a>
-<!-- <a href="/menu/create">Tambah Menu</a> -->
 <a href="/logout">Logout</a>

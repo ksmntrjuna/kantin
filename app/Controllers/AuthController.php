@@ -2,73 +2,124 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
 use App\Models\UserModel;
-use CodeIgniter\Controller;
+use Config\Services;
 
-class AuthController extends Controller
+
+class AuthController extends BaseController
 {
+    public function processRegister()
+    {
+        $userModel = new UserModel();
+    
+        // Validasi input dari form register
+        $rules = [
+            'name' => 'required',
+            'email' => 'required|valid_email|is_unique[users.email]',
+            'password' => 'required|min_length[6]',
+            'role' => 'required',
+        ];
+    
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('validation', $this->validator);
+        }
+    
+        // Menyimpan data user ke database
+        $userModel->save([
+            'name' => $this->request->getPost('name'),
+            'email' => $this->request->getPost('email'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'role' => $this->request->getPost('role'),
+        ]);
+    
+        // Redirect ke halaman login atau halaman lainnya
+        return redirect()->to('/login')->with('message', 'Registration successful. Please login.');
+    }
     public function register()
     {
         return view('auth/register');
     }
+    protected function getRoles()
+{
+    $config = new \Config\Auth();
+    return $config->validRoles;
+}
+    
 
     public function store()
     {
-        $model = new UserModel();
-        $data = [
-            'name' => $this->request->getPost('name'),
-            'email' => $this->request->getPost('email'),
-            'password' => $this->request->getPost('password'),
-            'role' => $this->request->getPost('role')
-        ];
-        $model->insert($data);
-
-        return redirect()->to('/login');
+        // Process the registration form submission
+        // Same logic as the register method
+        return $this->register();
     }
 
     public function login()
     {
+        helper(['form']);
+    
+        if ($this->request->getMethod() === 'post') {
+            // Validate the form data
+            $rules = [
+                'email'    => 'required|valid_email',
+                'password' => 'required',
+            ];
+    
+            if (!$this->validate($rules)) {
+                $data['validation'] = $this->validator;
+            } else {
+                // Check if the user exists in the database
+                $userModel = new UserModel();
+                $user = $userModel->where('email', $this->request->getPost('email'))->first();
+    
+                if ($user) {
+                    // User exists in the database
+    
+                    if (password_verify($this->request->getPost('password'), $user['password'])) {
+                        // Password is correct
+    
+                        // Get user role from database
+                        $role = $user['role'];
+    
+                        // Check user role
+                        if ($role == 'seller') {
+                            // Redirect to seller dashboard
+                            return redirect()->to('/seller/dashboard');
+                        } elseif ($role == 'buyer') {
+                            // Redirect to buyer dashboard
+                            return redirect()->to('/buyer/dashboard');
+                        } else {
+                            // Invalid role
+                            $data['error'] = 'Invalid role';
+                        }
+                    } else {
+                        // Invalid password
+                        $data['error'] = 'Email or password is incorrect';
+                    }
+                } else {
+                    // User does not exist
+                    $data['error'] = 'Email or password is incorrect';
+                }
+            }
+        }
+    
         return view('auth/login');
     }
-
-    public function authenticate()
-{
-    $model = new UserModel();
-    $email = $this->request->getPost('email');
-    $password = $this->request->getPost('password');
-    $user = $model->where('email', $email)->first();
-
-    if ($user && password_verify($password, $user['password'])) {
-        // Authentication success
-
-        // Set user session or JWT token, etc.
-        $sessionData = [
-            'id' => $user['id'],
-            'name' => $user['name'],
-            'role' => $user['role']
-        ];
-        session()->set($sessionData);
-
-        // Redirect user to the appropriate dashboard based on their role
-        if ($user['role'] === 'seller') {
-            return redirect()->to('/dashboard/seller');
-        } else if ($user['role'] === 'buyer') {
-            return redirect()->to('/dashboard/buyer');
-        }
-    } else {
-        // Authentication failed
-        // Show error message or redirect to login page
-        return redirect()->back()->with('error', 'Invalid email or password');
+    public function sellerDashboard()
+    {
+    // Add your logic to handle the seller dashboard
+    // For example, you can load the seller dashboard view
+    return view('seller/dashboard');
     }
-}
-
-
     public function logout()
     {
-        // Destroy user session or JWT token, etc.
+        session()->destroy();
+    
+        // Redirect the user to the login page or any other page as needed
         return redirect()->to('/login');
-        session()->remove(['id', 'name', 'role']);
-
     }
+    
+    
+    
     
 }

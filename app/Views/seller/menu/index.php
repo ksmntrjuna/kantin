@@ -2,18 +2,26 @@
 
 <a href="/menu/create">Tambah Menu</a>
 
-<?php if (session()->getFlashdata('success')) : ?>
-    <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
-<?php endif; ?>
+<table>
+    <thead>
+        <tr>
+            <th>Nama Menu</th>
+            <th>Harga</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($menus as $menu) : ?>
+            <tr>
+                <td><?= $menu['name']; ?></td>
+                <td><?= $menu['price']; ?></td>
+                <td>
+                    <a href="/menu/edit/<?= $menu['id']; ?>">Edit</a>
+                    <a href="/menu/delete/<?= $menu['id']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu ini?')">Hapus</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 
-<?php foreach ($menus as $menu) : ?>
-    <div>
-        <h2><?= $menu['name']; ?></h2>
-        <p>Harga: <?= $menu['price']; ?></p>
-        
-        <a href="/seller/menu/edit/<?= $menu['id']; ?>">Edit</a>
-        <a href="/seller/menu/delete/<?= $menu['id']; ?>" onclick="return confirm('Apakah Anda yakin ingin menghapus menu ini?')">Hapus</a>
-        
-        <a href="/menu/show/<?= $menu['id']; ?>">Lihat Detail</a>
-    </div>
-<?php endforeach; ?>
+<a href="/dashboard">Kembali ke Dashboard</a>

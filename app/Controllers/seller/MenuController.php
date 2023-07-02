@@ -11,44 +11,80 @@ class MenuController extends BaseController
     {
         $model = new MenuModel();
         $data['menus'] = $model->findAll();
-
+    
         return view('seller/menu/index', $data);
     }
 
     public function create()
     {
-        return view('seller/menu/create');
+        return view('seller/menu/create', );
     }
 
     public function store()
     {
-        // Proses penyimpanan menu baru ke database
-        // ...
+        $menuModel = new MenuModel();
 
+        $data = [
+            'name' => $this->request->getPost('name'),
+            'price' => $this->request->getPost('price'),
+        ];
+
+        $menuModel->insert($data);
+    
         return redirect()->to('/seller/menu')->with('success', 'Menu berhasil ditambahkan.');
-    }
-
-    public function edit($id)
-    {
-        $model = new MenuModel();
-        $data['menu'] = $model->find($id);
-
-        return view('seller/menu/edit', $data);
     }
 
     public function update($id)
     {
-        // Proses pembaruan menu di database
-        // ...
-
-        return redirect()->to('/seller/menu')->with('success', 'Menu berhasil diperbarui.');
+        $menuModel = new MenuModel(); // Define the $menuModel variable
+    
+        // Ambil data dari form edit menu
+        $menuData = [
+            'name' => $this->request->getPost('name'),
+            'price' => $this->request->getPost('price')
+        ];
+    
+        // Periksa apakah menu dengan $id ada dalam database
+        $menu = $menuModel->find($id); // Use $menuModel instead of $this->menuModel
+        if (!$menu) {
+            return redirect()->back()->with('error', 'Menu not found');
+        }
+    
+        // Perbarui data menu di database
+        try {
+            $menuModel->update($id, $menuData); // Use $menuModel instead of $this->menuModel
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update menu: ' . $e->getMessage());
+        }
+    
+        // Redirect ke halaman daftar menu dengan pesan sukses
+        return redirect()->to('/seller/menu')->with('success', 'Menu updated successfully');
     }
+    
 
+
+    // public function update()
+    // {
+    //     // $menuModel = new MenuModel();
+
+    //     // $data = [
+    //     //     'name' => $this->request->getPost('name'),
+    //     //     'price' => $this->request->getPost('price'),
+    //     // ];
+
+    //     // $menuModel->update($data);
+
+    //     // return redirect()->to('/seller/menu')->with('success', 'Menu berhasil diperbarui.');
+    // }
+
+    
     public function delete($id)
     {
-        // Proses penghapusan menu dari database
-        // ...
+        
+        $menuModel = new MenuModel();
+        $menuModel->delete($id);
 
-        return redirect()->to('/seller/menu')->with('success', 'Menu berhasil dihapus.');
+        return redirect()->to('seller/menu')->with('success', 'Menu berhasil dihapus.');
+
     }
 }

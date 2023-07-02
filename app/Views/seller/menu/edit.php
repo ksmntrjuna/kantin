@@ -1,11 +1,13 @@
 <h1>Edit Menu</h1>
 
-<form action="/seller/menu/update/<?= $menu['id']; ?>" method="POST">
-    <label for="name">Nama:</label>
-    <input type="text" name="name" id="name" value="<?= $menu['name']; ?>" required>
+<form action="/menu/update" method="POST">
+    <label for="name">Nama Menu:</label>
+    <input type="text" name="name" id="name" required>
 
     <label for="price">Harga:</label>
-    <input type="text" name="price" id="price" value="<?= $menu['price']; ?>" required>
+    <input type="number" name="price" id="price" min="0" required>
 
-    <button type="submit">Update</button>
+    <button type="submit">Simpan</button>
+    
 </form>
+

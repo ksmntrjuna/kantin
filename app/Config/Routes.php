@@ -30,20 +30,31 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('seller/menu', 'Seller\MenuController::index');
+
 #register
-$routes->get('/register', 'AuthController::register');
-$routes->post('/register', 'AuthController::store');
-$routes->get('/login', 'AuthController::login');
-$routes->post('/login', 'AuthController::authenticate');
+$routes->match(['get', 'post'], 'login', 'AuthController::login');
 $routes->get('/logout', 'AuthController::logout');
+$routes->get('/register', 'AuthController::register');
+$routes->post('/register', 'AuthController::processRegister');
+
 //seller
 $routes->get('dashboard/seller', 'Seller\DashboardController::index');
 $routes->get('menu', 'Seller\MenuController::index');
+$routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
+
+//
+$routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
+$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
+//
 $routes->get('menu/create', 'Seller\MenuController::create');
+$routes->post('menu', 'Seller\MenuController::store');
 $routes->post('menu/store', 'Seller\MenuController::store');
-$routes->get('menu/edit/(:num)', 'MenuController::edit/$1');
-$routes->post('menu/update/(:num)', 'MenuController::update/$1');
-$routes->get('menu/delete/(:num)', 'MenuController::delete/$1');
+$routes->get('menu/edit/(:num)', 'Seller\MenuController::edit/$1');
+$routes->post('menu/update/(:num)', 'Seller\MenuController::update/$id');
+$routes->get('/menu/delete/(:num)', 'Seller\MenuController::delete/$1');
+$routes->get('/dashboard', 'Seller\DashboardController::index');
+
 #buyer
 $routes->get('dashboard/buyer', 'Buyer\DashboardController::index');
 
