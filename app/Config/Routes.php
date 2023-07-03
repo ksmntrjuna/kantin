@@ -38,20 +38,21 @@ $routes->get('/logout', 'AuthController::logout');
 $routes->get('/register', 'AuthController::register');
 $routes->post('/register', 'AuthController::processRegister');
 
+$routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
+$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
+
 //seller
 $routes->get('dashboard/seller', 'Seller\DashboardController::index');
 $routes->get('menu', 'Seller\MenuController::index');
 $routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
 
 //
-$routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
-$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
-//
 $routes->get('menu/create', 'Seller\MenuController::create');
 $routes->post('menu', 'Seller\MenuController::store');
 $routes->post('menu/store', 'Seller\MenuController::store');
-$routes->get('menu/edit/(:num)', 'Seller\MenuController::edit/$1');
-$routes->post('menu/update/(:num)', 'Seller\MenuController::update/$id');
+$routes->get('menu/edit/(:num)', 'Seller\MenuController::edit/ $1');
+$routes->post('menu/(:num)', 'Seller\MenuController::update/$1');
+$routes->post('menu/update/(:num)', 'Seller\MenuController::update/$1');
 $routes->get('/menu/delete/(:num)', 'Seller\MenuController::delete/$1');
 $routes->get('/dashboard', 'Seller\DashboardController::index');
 
