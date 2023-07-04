@@ -1,21 +1,31 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\Controllers;
 
+=======
+>>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 namespace App\Controllers\Buyer;
 
 use App\Controllers\BaseController;
 use App\Models\MenuModel;
+<<<<<<< HEAD
 use App\Models\OrderModel;
 use Endroid\QrCode\QrCode;
 
+=======
+>>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 
 class MenuController extends BaseController
 {
     public function index()
     {
         $model = new MenuModel();
+<<<<<<< HEAD
         $data['menu'] = $model->findAll();
+=======
+        $data['menus'] = $model->findAll();
+>>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 
         return view('buyer/menu/index', $data);
     }
@@ -30,6 +40,7 @@ class MenuController extends BaseController
 
     public function storeOrder($id)
     {
+<<<<<<< HEAD
         $model = new MenuModel();
         $menu = $model->find($id);
 
@@ -69,5 +80,11 @@ class MenuController extends BaseController
         }
 
         return view('buyer/menu/payment', ['order' => $order]);
+=======
+        // Proses pemesanan menu ke dalam database
+        // ...
+
+        return redirect()->to('/buyer/menu')->with('success', 'Pesanan berhasil dibuat.');
+>>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
     }
 }

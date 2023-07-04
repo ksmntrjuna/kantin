@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,3 +23,11 @@
 </body>
 
 </html>
+=======
+<h1>Buyer Dashboard</h1>
+
+<p>Welcome, <?= session()->get('name'); ?></p>
+
+<a href="/menu">Daftar Menu</a>
+<a href="/logout">Logout</a>
+>>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
