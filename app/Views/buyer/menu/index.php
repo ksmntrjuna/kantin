@@ -1,19 +1,33 @@
-<h1>Daftar Menu</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<?php foreach ($menus as $menu) : ?>
-    <div>
-        <h2><?= $menu['name']; ?></h2>
-        <p>Harga: <?= $menu['price']; ?></p>
-<<<<<<< HEAD
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Daftar Menu</title>
+</head>
 
-        <a href="/buyer/menu/order/<?= $menu['id']; ?>">Pesan</a>
-        <a href="/menu/show/<?= $menu['id']; ?>">Lihat Detail</a>
+<body>
+    <div class="container">
+        <h1>Daftar Menu</h1>
+
+        <?php foreach ($menus as $menu) : ?>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h2 class="card-title"><?= $menu['name']; ?></h2>
+                    <p class="card-text">Harga: <?= $menu['price']; ?></p>
+
+                    <a class="btn btn-success" href="/buyer/menu/order/<?= $menu['id']; ?>">Pesan</a>
+                    <!-- <a class="btn btn-secondary" href="/menu/show/<?= $menu['id']; ?>">Lihat Detail</a> -->
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+        <a class="btn btn-danger" href="/buyer/dashboard">Kembali ke Dashboard</a>
     </div>
-<?php endforeach; ?>
-=======
-        
-        <a href="/buyer/menu/order/<?= $menu['id']; ?>">Pesan</a>
-        <a href="/menu/show/<?= $menu['id']; ?>">Lihat Detail</a>
-    </div>
-<?php endforeach; ?>
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

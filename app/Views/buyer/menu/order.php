@@ -1,31 +1,42 @@
-<h1>Pesan Menu</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<h2><?= $menu['name']; ?></h2>
-<p>Harga: <?= $menu['price']; ?></p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Pesan Menu</title>
+</head>
 
-<<<<<<< HEAD
-<form action="/buyer/menu/storeOrder/<?= $menu['id']; ?>" method="POST">
-    <label for="quantity">Jumlah:</label>
-    <input type="number" name="quantity" id="quantity" min="1" required>
+<body>
+    <div class="container">
+        <h1>Pesan Menu</h1>
 
-    <label for="address">Alamat Pengiriman:</label>
-    <input type="text" name="address" id="address" required>
-=======
-<form action="buyer/menu/storeOrder/<?= $menu['id']; ?>" method="POST">
-    <label for="quantity">Jumlah:</label>
-    <input type="number" name="quantity" id="quantity" min="1" required>
+        <h2><?= $menu['name']; ?></h2>
+        <p>Harga: <?= $menu['price']; ?></p>
 
-    <!-- Informasi tambahan terkait pemesanan, seperti alamat pengiriman, metode pembayaran, dll -->
-    <!-- Tambahkan input form sesuai kebutuhan -->
-    <!-- <label for="address">Alamat Pengiriman:</label>
-    <input type="text" name="address" id="address" required> -->
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
+        <form action="/buyer/menu/storeOrder/<?= $menu['id']; ?>" method="POST">
+            <div class="form-group">
+                <label for="quantity">Jumlah:</label>
+                <input type="number" class="form-control" name="quantity" id="quantity" min="1" required>
+            </div>
 
-    <button type="submit">Pesan</button>
-</form>
+            <div class="form-group">
+                <label for="address">No Meja:</label>
+                <input type="text" class="form-control" name="address" id="address" required>
+            </div>
 
-<<<<<<< HEAD
-<a href="/buyer/menu">Kembali ke Daftar Menu</a>
-=======
-<a href="/menu">Kembali ke Daftar Menu</a>
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
+            <!-- Informasi tambahan terkait pemesanan, seperti alamat pengiriman, metode pembayaran, dll -->
+            <!-- Tambahkan input form sesuai kebutuhan -->
+
+            <button type="submit" class="btn btn-success">Pesan</button>
+            <a class="btn btn-danger" href="/buyer/menu">Kembali ke Daftar Menu</a>
+        </form>
+
+        <!-- <a class="btn btn-danger" href="/buyer/menu">Kembali ke Daftar Menu</a> -->
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

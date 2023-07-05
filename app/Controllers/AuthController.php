@@ -107,7 +107,6 @@ class AuthController extends BaseController
     }
     public function sellerDashboard()
     {
-<<<<<<< HEAD
       
         return view('seller/dashboard');
     }
@@ -115,11 +114,10 @@ class AuthController extends BaseController
     {
 
         return view('buyer/dashboard');
-=======
     // Add your logic to handle the seller dashboard
     // For example, you can load the seller dashboard view
     return view('seller/dashboard');
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
+
     }
     public function logout()
     {

@@ -1,11 +1,6 @@
 <?php
 
 namespace Config;
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
 
@@ -49,39 +44,23 @@ $routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
 $routes->get('dashboard/seller', 'Seller\DashboardController::index');
 $routes->get('menu', 'Seller\MenuController::index');
 $routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
-<<<<<<< HEAD
-$routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
+// $routes->get('/seller/dashboard', 'AuthController::sellerDashboard');
 
 //menuseller
-=======
-
-//
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 $routes->get('menu/create', 'Seller\MenuController::create');
 $routes->post('menu', 'Seller\MenuController::store');
 $routes->post('menu/store', 'Seller\MenuController::store');
 $routes->get('menu/edit/(:num)', 'Seller\MenuController::edit/ $1');
 $routes->post('menu/(:num)', 'Seller\MenuController::update/$1');
-<<<<<<< HEAD
+
 $routes->post('menu/update/(:segment)', 'Seller\MenuController::update/$1');
-=======
 $routes->post('menu/update/(:num)', 'Seller\MenuController::update/$1');
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 $routes->get('/menu/delete/(:num)', 'Seller\MenuController::delete/$1');
 $routes->get('/dashboard', 'Seller\DashboardController::index');
 
 #buyer
-$routes->get('dashboard/buyer', 'Buyer\DashboardController::index');
-
-<<<<<<< HEAD
+$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
 $routes->get('/buyer/menu', 'Buyer\MenuController::index', ['as' => 'buyer_menu_index']);
-$routes->get('/buyer/menu/order/(:num)', 'Buyer\MenuController::order/$1');
-
-$routes->get('dashboard/buyer', 'Seller\DashboardController::index');
-$routes->get('menu', 'Buyer\MenuController::index');
-$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
-$routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
-
 $routes->get('/buyer/menu/order/(:num)', 'Buyer\MenuController::order/$1');
 $routes->post('/buyer/menu/storeOrder/(:num)', 'Buyer\MenuController::storeOrder/$1');
 $routes->get('/buyer/menu', 'MenuController::index');
@@ -89,8 +68,6 @@ $routes->get('/buyer/menu/order/(:num)', 'MenuController::order/$1');
 $routes->post('/buyer/menu/storeOrder/(:num)', 'MenuController::storeOrder/$1');
 $routes->get('/buyer/menu/payment/(:num)', 'MenuController::showPayment/$1');
 
-=======
->>>>>>> 925775b0c2a3a8a5eb2320500e04c23c38de954b
 
 /*
  * --------------------------------------------------------------------
