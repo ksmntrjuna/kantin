@@ -12,32 +12,30 @@
     <div class="container">
         <h1>Pembayaran</h1>
 
-        <?php if (isset($orderData)) : ?>
             <h2>Detail Pesanan</h2>
-            <p>Menu: <?= $orderData['food_id']; ?></p>
-            <p>Jumlah: <?= $orderData['quantity']; ?></p>
-            <p>Status: <?= $orderData['status']; ?></p>
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Menu</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                </tr>
+                <?php foreach ($orderList as $orderData) : ?>
+                    <tr>
+                        <td><?= $orderData['food_id']; ?></td>
+                        <td><?= $orderData['name']; ?></td>
+                        <td><?= $orderData['price']; ?></td>
+                        <td><?= $orderData['quantity']; ?></td>
+                        <td><?= $orderData['status']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
             <div class="qrcode" data-scan="<?= $orderData['id'] ?>"></div>
-        <?php endif; ?>
 
-        <a class="btn btn-secondary" href="/buyer/menu">Kembali ke Daftar Menu</a>
+        <a class="btn btn-primary" href="/buyer/menu">Pesan Lagi Satt</a>
+        <a class="btn btn-success" href="/buyer/menu">Bayar</a>
     </div>
-
-    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            const targetEl = document.querySelector(".qrcode");
-            new QRCode(targetEl, {
-                text: targetEl.dataset.scan,
-                width: 500,
-                height: 500,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
-        }); -->
-    <!-- </script> -->
 </body>
 
 </html>

@@ -31,45 +31,41 @@ class MenuController extends BaseController
     {
         $model = new MenuModel();
         $menu = $model->find($id);
-        // Validasi input dari form pemesanan
-        // $rules = [
-        //     'quantity' => 'required|numeric|min:1',
-        //     'address' => 'required',
-        // ];
+        
         $rules = [
             'quantity' => 'required|numeric|greater_than_equal_to[1]',
             'address' => 'required',
         ];
         
 
-           if (!$this->validate($rules)) {
+        if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
-
+        
         // Simpan data pemesanan ke dalam database  
         $orderModel = new OrderModel();
         $orderId = $orderModel->insert([
             'food_id' => $menu['id'],
+            'name' => $menu['name'],
+            'price' => $menu['price'],
             'quantity' => $this->request->getPost('quantity'),
             'status' => 'pending',
-            'created_at' => date('Y-m-d H:i:s'),
         ]);
+
         $orderData = $orderModel->find($orderId);
+        $data['menu'] = $menu;
+        $data['orderData'] = $orderData;
 
-        // Generate QR code
-        // $qrCode = new QrCode(route_to('menuController::showPayment', $orderId));
-        // $qrCode->setSize(300);
-        // $qrCodeString = $qrCode->writeString('png');
-        // $qrCodeDataUri = 'data:image/png;base64,' . base64_encode($qrCodeString);
+        $session = session();
+        $orderList = $session->get('orderList', []);
+        $orderList[] = $orderData;
+        $session->set('orderList', $orderList);
 
-        // return view('buyer/menu/payment', ['qrCode' => $qrCodeDataUri]);
-        // return view('buyer/menu/payment');
+        // var_dump($orderList);die();
+                
+        return view('buyer/menu/payment', ['orderList' => $orderList]);
 
-        
-        // $qrCode = new QrCode(route('menuController.showPayment', $orderId));
-        // $qrCode->setSize(300);
-
-        return view('buyer/menu/payment', ['orderData' => $orderData]);
+        // return view('buyer/menu/payment', ['orderData' => $orderData], ['orderList' => $orderList]);
     }
 
     public function showPayment($id)
@@ -89,5 +85,25 @@ class MenuController extends BaseController
 
         return redirect()->to('/buyer/menu')->with('success', 'Pesanan berhasil dibuat.');
     }
+    public function addOrder($orderId)
+    {
+        $orderModel = new OrderModel();
+        $order = $orderModel->find($orderId);
+
+        if (!$order) {
+            return redirect()->to('/buyer/menu')->with('error', 'Order not found.');
+        }
+
+        // Lakukan logika tambahan untuk menambahkan pesanan di sini
+        // Misalnya, menambahkannya ke keranjang belanja atau melakukan pembayaran
+
+        $menuModel = new MenuModel();
+        $orderedMenus = $menuModel->whereIn('id', explode(',', $order['food_id']))->findAll();
+
+        return view('buyer/menu/payment', ['orderData' => $order, 'orderedMenus' => $orderedMenus]);
+    }
+
+    
+
 
 }

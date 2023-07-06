@@ -66,7 +66,9 @@ $routes->post('/buyer/menu/storeOrder/(:num)', 'Buyer\MenuController::storeOrder
 $routes->get('/buyer/menu', 'MenuController::index');
 $routes->get('/buyer/menu/order/(:num)', 'MenuController::order/$1');
 $routes->post('/buyer/menu/storeOrder/(:num)', 'MenuController::storeOrder/$1');
+$routes->post('menu/storeOrder/(:num)', 'MenuController::storeOrder/$1', ['as' => 'buyerMenuStoreOrder']);
 $routes->get('/buyer/menu/payment/(:num)', 'MenuController::showPayment/$1');
+$routes->get('menu/addOrder/(:num)', 'MenuController::addOrder/$1', ['as' => 'buyerMenuAddOrder']);
 
 
 /*

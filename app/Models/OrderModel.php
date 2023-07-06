@@ -8,5 +8,5 @@ class OrderModel extends Model
 {
     protected $table = 'orders';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['menu_id', 'quantity', 'total_price', 'status', 'address'];
+    protected $allowedFields = ['food_id', 'name', 'quantity', 'price', 'status'];
 }
