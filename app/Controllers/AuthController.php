@@ -12,7 +12,7 @@ class AuthController extends BaseController
     public function processRegister()
     {
         $userModel = new UserModel();
-    
+
         // Validasi input dari form register
         $rules = [
             'name' => 'required',
@@ -20,11 +20,11 @@ class AuthController extends BaseController
             'password' => 'required|min_length[6]',
             'role' => 'required',
         ];
-    
+
         if (!$this->validate($rules)) {
             return redirect()->back()->withInput()->with('validation', $this->validator);
         }
-    
+
         // Menyimpan data user ke database
         $userModel->save([
             'name' => $this->request->getPost('name'),
@@ -32,7 +32,7 @@ class AuthController extends BaseController
             'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
             'role' => $this->request->getPost('role'),
         ]);
-    
+
         // Redirect ke halaman login atau halaman lainnya
         return redirect()->to('/login')->with('message', 'Registration successful. Please login.');
     }
@@ -41,11 +41,11 @@ class AuthController extends BaseController
         return view('auth/register');
     }
     protected function getRoles()
-{
-    $config = new \Config\Auth();
-    return $config->validRoles;
-}
-    
+    {
+        $config = new \Config\Auth();
+        return $config->validRoles;
+    }
+
 
     public function store()
     {
@@ -57,30 +57,30 @@ class AuthController extends BaseController
     public function login()
     {
         helper(['form']);
-    
+
         if ($this->request->getMethod() === 'post') {
             // Validate the form data
             $rules = [
                 'email'    => 'required|valid_email',
                 'password' => 'required',
             ];
-    
+
             if (!$this->validate($rules)) {
                 $data['validation'] = $this->validator;
             } else {
                 // Check if the user exists in the database
                 $userModel = new UserModel();
                 $user = $userModel->where('email', $this->request->getPost('email'))->first();
-    
+
                 if ($user) {
                     // User exists in the database
-    
+
                     if (password_verify($this->request->getPost('password'), $user['password'])) {
                         // Password is correct
-    
+
                         // Get user role from database
                         $role = $user['role'];
-    
+
                         // Check user role
                         if ($role == 'seller') {
                             // Redirect to seller dashboard
@@ -102,32 +102,27 @@ class AuthController extends BaseController
                 }
             }
         }
-    
+
         return view('auth/login');
     }
     public function sellerDashboard()
     {
-      
+
         return view('seller/dashboard');
     }
     public function buyerDashboard()
     {
 
         return view('buyer/dashboard');
-    // Add your logic to handle the seller dashboard
-    // For example, you can load the seller dashboard view
-    return view('seller/dashboard');
-
+        // Add your logic to handle the seller dashboard
+        // For example, you can load the seller dashboard view
+        return view('seller/dashboard');
     }
     public function logout()
     {
         session()->destroy();
-    
+
         // Redirect the user to the login page or any other page as needed
         return redirect()->to('/login');
     }
-    
-    
-    
-    
 }

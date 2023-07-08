@@ -69,6 +69,11 @@ $routes->post('/buyer/menu/storeOrder/(:num)', 'MenuController::storeOrder/$1');
 $routes->post('menu/storeOrder/(:num)', 'MenuController::storeOrder/$1', ['as' => 'buyerMenuStoreOrder']);
 $routes->get('/buyer/menu/payment/(:num)', 'MenuController::showPayment/$1');
 $routes->get('menu/addOrder/(:num)', 'MenuController::addOrder/$1', ['as' => 'buyerMenuAddOrder']);
+$routes->post('receipt', 'Buyer\MenuController::generateReceipt', ['as' => 'buyerMenuGenerateReceipt']);
+
+// qr
+$routes->get('/qr', 'QrController::index');
+$routes->post('/create-qr', 'QrController::store');
 
 
 /*

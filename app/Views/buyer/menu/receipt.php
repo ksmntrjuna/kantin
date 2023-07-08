@@ -5,43 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Pembayaran</title>
+    <title>Struk Pembayaran</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>Pembayaran</h1>
-        <h4>Detail Pesanan</h4>
-        <table class="table table-bordered">
+        <h1>Struk Pembayaran</h1>
+
+        <h2>Detail Pesanan</h2>
+        <table class="table table">
             <thead class="table-secondary">
                 <tr>
-                    <th>no</th>
+                    <th>nomor</th>
                     <th>Menu</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
+                    <th>Status</th>
                 </tr>
             </thead>
-            <?php $i = 1; ?>
-            <?php foreach ($orderList as $orderData) : ?>
-                <tbody>
+            <tbody>
+                <?php $i = 1; ?>
+                <?php foreach ($orderList as $orderData) : ?>
                     <tr>
                         <td><?= $i++; ?></td>
                         <td><?= $orderData['name']; ?></td>
                         <td><?= $orderData['price']; ?></td>
                         <td><?= $orderData['quantity']; ?></td>
-
+                        <td><?= $orderData['status']; ?></td>
                     </tr>
-                </tbody>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </tbody>
         </table>
-        <div class="qrcode" data-scan="<?= $orderData['id'] ?>"></div>
 
-        <a class="btn btn-primary" href="/buyer/menu">Pesan Lagi Satt</a>
-        <!-- <a class="btn btn-success" href="/buyer/struk">Bayar</a> -->
-        <form action="<?= route_to('buyerMenuGenerateReceipt') ?>" method="post">
-            <button class="btn btn-success" type="submit">Submit</button>
-        </form>
-        <!-- <a class="btn btn-success" href="<?= route_to('buyerMenuGenerateReceipt') ?>">Bayar</a> -->
+        <div>
+            <label for="address">No.Meja :</label>
+            <input class="form-control" type="text" name="address" required>
+        </div>
+
+        <p>Total Pembayaran: <?= $totalPayment; ?></p>
+        <p>Metode Pembayaran: <!-- Tambahkan informasi metode pembayaran --></p>
+
+        <a class="btn btn-primary" href="/buyer/menu">Kembali ke Menu</a>
     </div>
 </body>
 
