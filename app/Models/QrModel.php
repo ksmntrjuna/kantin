@@ -14,6 +14,10 @@ class QrModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['rekening', 'user_id'];
+    protected $validationRules = [
+        'rekening' => 'required',
+        'user_id' => 'required'
+    ];
 
     public function user()
     {

@@ -45,6 +45,8 @@
         <p>Total Pembayaran: <?= $totalPayment; ?></p>
         <p>Metode Pembayaran: <!-- Tambahkan informasi metode pembayaran --></p>
 
+        <button type="submit" class="btn btn-success">Bayar</button>
+
         <a class="btn btn-primary" href="/buyer/menu">Kembali ke Menu</a>
     </div>
 </body>

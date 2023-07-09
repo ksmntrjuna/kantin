@@ -15,7 +15,7 @@
         <table class="table table-bordered">
             <thead class="table-secondary">
                 <tr>
-                    <th>no</th>
+                    <th>No</th>
                     <th>Menu</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
@@ -29,17 +29,16 @@
                         <td><?= $orderData['name']; ?></td>
                         <td><?= $orderData['price']; ?></td>
                         <td><?= $orderData['quantity']; ?></td>
-
                     </tr>
                 </tbody>
             <?php endforeach; ?>
         </table>
         <div class="qrcode" data-scan="<?= $orderData['id'] ?>"></div>
 
-        <a class="btn btn-primary" href="/buyer/menu">Pesan Lagi Satt</a>
+        <a class="btn btn-primary mt-2" href="/buyer/menu">Pesan Lagi Satt</a>
         <!-- <a class="btn btn-success" href="/buyer/struk">Bayar</a> -->
         <form action="<?= route_to('buyerMenuGenerateReceipt') ?>" method="post">
-            <button class="btn btn-success" type="submit">Submit</button>
+            <button class="btn btn-success mt-2" type="submit">Submit</button>
         </form>
         <!-- <a class="btn btn-success" href="<?= route_to('buyerMenuGenerateReceipt') ?>">Bayar</a> -->
     </div>

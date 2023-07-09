@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <title>QR</title>
+    <title>Buat Rekening</title>
 </head>
 
 <body>
     <div class="container mt-3">
-        <h2>upload QR</h2>
-        <form action="/create-qr" method="post">
+        <h2>Buat Rekening</h2>
+        <form action="/qr/create" method="post">
             <div>
                 <label for="rekening">rekening</label>
-                <input class="form-control" type="text" name="rekening" required>
+                <input class="form-control" type="text" name="rekening">
             </div>
             <div>
                 <label for="user">user</label>

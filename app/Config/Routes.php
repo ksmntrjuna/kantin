@@ -58,6 +58,10 @@ $routes->post('menu/update/(:num)', 'Seller\MenuController::update/$1');
 $routes->get('/menu/delete/(:num)', 'Seller\MenuController::delete/$1');
 $routes->get('/dashboard', 'Seller\DashboardController::index');
 
+//orderan seller
+$routes->get('orderan', 'Seller\OrderController::index');
+
+
 #buyer
 $routes->get('/buyer/dashboard', 'AuthController::buyerDashboard');
 $routes->get('/buyer/menu', 'Buyer\MenuController::index', ['as' => 'buyer_menu_index']);
@@ -72,8 +76,11 @@ $routes->get('menu/addOrder/(:num)', 'MenuController::addOrder/$1', ['as' => 'bu
 $routes->post('receipt', 'Buyer\MenuController::generateReceipt', ['as' => 'buyerMenuGenerateReceipt']);
 
 // qr
-$routes->get('/qr', 'QrController::index');
-$routes->post('/create-qr', 'QrController::store');
+$routes->get('qr', 'Seller\QrController::index');
+$routes->get('qr/create', 'Seller\QrController::create');
+$routes->post('qr/create', 'Seller\QrController::store');
+$routes->get('qr/delete/(:num)', 'QrController::delete/$1');
+
 
 
 /*

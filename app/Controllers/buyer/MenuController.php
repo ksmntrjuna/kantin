@@ -16,7 +16,6 @@ class MenuController extends BaseController
     {
         $model = new MenuModel();
         $data['menus'] = $model->findAll();
-
         return view('buyer/menu/index', $data);
     }
 
@@ -24,7 +23,7 @@ class MenuController extends BaseController
     {
         $model = new MenuModel();
         $data['menu'] = $model->find($id);
-
+        
         return view('buyer/menu/order', $data);
     }
 
@@ -51,7 +50,6 @@ class MenuController extends BaseController
             'quantity' => $this->request->getPost('quantity'),
         ]);
 
-
         $orderData = $orderModel->find($orderId);
         $data['menu'] = $menu;
         $data['orderData'] = $orderData;
@@ -64,6 +62,22 @@ class MenuController extends BaseController
 
         return view('buyer/menu/payment', ['orderList' => $orderList]);
     }
+
+    // public function storeOrder($id)
+    // {
+    //     $model = new OrderModel();
+
+    //     $data = [
+    //             'name' => ('name'),
+    //             'price' => ('price'),
+    //             'quantity' => $this->request->getPost('quantity')
+    //         ];
+
+    //     $model->insert($data);
+    //     // dd($data);
+
+    //     return view('buyer/menu/payment', $data);
+    // }
 
     public function showPayment($id)
     {
@@ -84,23 +98,7 @@ class MenuController extends BaseController
 
         return redirect()->to('/buyer/menu')->with('success', 'Pesanan berhasil dibuat.');
     }
-    // public function addOrder($orderId)
-    // {
-    //     $orderModel = new OrderModel();
-    //     $order = $orderModel->find($orderId); 
 
-    //     if (!$order) {
-    //         return redirect()->to('/buyer/menu')->with('error', 'Order not found.');
-    //     }
-
-    //     // Lakukan logika tambahan untuk menambahkan pesanan di sini
-    //     // Misalnya, menambahkannya ke keranjang belanja atau melakukan pembayaran
-
-    //     $menuModel = new MenuModel();
-    //     $orderedMenus = $menuModel->whereIn('id', explode(',', $order['food_id']))->findAll();
-
-    //     return view('buyer/menu/payment', ['orderData' => $order, 'orderedMenus' => $orderedMenus])->with('success', 'Berhasil menambahkan pesanan.');
-    // }
 
     public function generateReceipt()
     {
